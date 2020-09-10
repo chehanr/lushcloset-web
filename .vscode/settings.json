@@ -1,0 +1,16 @@
+{
+    "editor.formatOnSave": false,
+    "[vue]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+    },
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+    },
+    "files.eol": "\n",
+}
