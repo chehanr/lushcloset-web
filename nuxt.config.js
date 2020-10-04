@@ -21,6 +21,7 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
     '@nuxtjs/svg',
+    '@nuxtjs/date-fns',
   ],
   modules: ['@nuxtjs/bulma', '@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth'],
   axios: {
