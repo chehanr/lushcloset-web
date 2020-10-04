@@ -3,10 +3,15 @@
     <div class="box">
       <div class="media mb-3">
         <div class="media-left">
-          <figure class="image is-32x32">
+          <figure class="image is-32x32 is-square">
             <img
               class="is-rounded"
-              src="https://bulma.io/images/placeholders/128x128.png"
+              :src="
+                userAvatarUrl
+                  ? userAvatarUrl
+                  : require('~/assets/images/avatar-default.png')
+              "
+              alt="Avatar"
             />
           </figure>
         </div>
@@ -14,9 +19,28 @@
         <div class="media-content">
           <div class="content">
             <p class="is-size-7 has-text-weight-medium">
-              John Doe is <strong class="is-uppercase">renting</strong>
+              {{ listing.createdBy.name }} is
+              <strong
+                v-if="listing.listingType === 'sell'"
+                class="is-uppercase"
+              >
+                selling
+              </strong>
+              <strong
+                v-if="listing.listingType === 'rent'"
+                class="is-uppercase"
+              >
+                renting
+              </strong>
               <br />
-              <small class="has-text-weight-normal">31 minutes ago</small>
+              <small class="has-text-weight-normal">
+                {{
+                  $dateFns.formatDistanceToNow(
+                    $dateFns.parseJSON(listing.createdAt),
+                    { addSuffix: true }
+                  )
+                }}
+              </small>
             </p>
           </div>
         </div>
@@ -25,40 +49,61 @@
       <div class="tile is-ancestor">
         <div class="tile is-parent">
           <figure class="tile is-child image is-square">
-            <img src="https://bulma.io/images/placeholders/128x128.png" />
+            <img
+              :src="
+                listingImages[0]
+                  ? listingImages[0]
+                  : require('~/assets/images/blank.png')
+              "
+              alt="Listing image"
+            />
           </figure>
         </div>
-        <div class="tile is-4 is-vertical is-parent is-hidden-mobile">
+        <div
+          v-if="listingImages.length > 1"
+          class="tile is-4 is-vertical is-parent is-hidden-mobile"
+        >
           <figure class="tile is-child image is-square">
-            <img src="https://bulma.io/images/placeholders/128x128.png" />
+            <img
+              :src="
+                listingImages[1]
+                  ? listingImages[1]
+                  : require('~/assets/images/blank.png')
+              "
+              alt="Listing image"
+            />
           </figure>
           <figure class="tile is-child image is-square">
-            <img src="https://bulma.io/images/placeholders/128x128.png" />
+            <img
+              :src="
+                listingImages[2]
+                  ? listingImages[2]
+                  : require('~/assets/images/blank.png')
+              "
+              alt="Listing image"
+            />
           </figure>
         </div>
       </div>
 
       <p class="is-size-4">
-        <strong>Example product</strong>
+        <strong>{{ listing.title }}</strong>
       </p>
 
       <p class="is-size-7">
         <small class="is-uppercase has-text-weight-medium">
-          Hawthorn Melborne, Victoria
+          {{ listing.approximateLocation.formattedAddress }}
         </small>
       </p>
 
       <p class="is-size-7 my-3">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-        dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-        ultricies nec, pellentesque eu, pretium qui...
+        {{ listing.shortDescription }}
       </p>
 
       <p
         class="is-size-7 is-family-monospace is-uppercase has-text-weight-medium"
       >
-        size: small | condition: new
+        {{ metaData }}
       </p>
 
       <div class="level mt-3">
@@ -103,3 +148,75 @@
   padding: 4px;
 }
 </style>
+
+<script>
+export default {
+  props: {
+    listing: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      userAvatarUrl: null,
+    }
+  },
+  computed: {
+    metaData() {
+      let _str = ''
+
+      if (!this.listing.metaData) {
+        return _str
+      }
+
+      const _arr = []
+
+      Object.keys(this.listing.metaData).forEach((key) => {
+        _arr.push(`${key}: ${this.listing.metaData[key]}`)
+      })
+
+      _str = _arr.join(' | ')
+
+      return _str
+    },
+    listingImages() {
+      const _arr = []
+
+      this.listing.images.forEach((image) => {
+        if (image.file.links) {
+          const smallestImage = image.file.links.reduce((pLink, cLink) => {
+            return pLink.size < cLink.size ? pLink : cLink
+          })
+
+          _arr.push(smallestImage.url)
+        }
+      })
+
+      return _arr
+    },
+  },
+  async created() {
+    await this.getAvatarUrl(this.listing.createdBy.id)
+  },
+  methods: {
+    async getAvatarUrl(creatorId) {
+      let url = null
+
+      const user = await this.$axios
+        .get(`/api/v1_0/users/${creatorId}`)
+        .then((res) => res.data.data)
+
+      if (user.avatar && user.avatar.file && user.avatar.file.links) {
+        const smallestImage = user.avatar.file.links.reduce((pLink, cLink) => {
+          return pLink.size < cLink.size ? pLink : cLink
+        })
+
+        url = smallestImage.url
+      }
+
+      this.userAvatarUrl = url
+    },
+  },
+}
+</script>
