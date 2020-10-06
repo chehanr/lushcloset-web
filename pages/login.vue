@@ -71,9 +71,10 @@
       </div>
 
       <div class="column is-hidden-mobile">
-        <img class="splash-image" :src="splashImages[0]" />
+        <img class="splash-image" :src="splashImages[2]" />
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -81,6 +82,11 @@
 .columns
   display: flex
   height: 100vh
+
+.footer
+  // Always show footer on login page
+  position: fixed
+  bottom: 0
 
 .splash-image
   height: 100%
@@ -90,12 +96,18 @@
   object-fit: cover
 
 .login-container
+  height: 100%
   width: 100%
-  max-width: 500px;
+  max-width: 700px
 </style>
 
 <script>
+import Footer from '~/components/Footer'
+
 export default {
+  components: {
+    Footer,
+  },
   async asyncData({ $axios }) {},
   data() {
     return {
@@ -115,7 +127,9 @@ export default {
       splashImages: [
         require('../assets/images/marcus-loke-xXJ6utyoSw0-unsplash.jpg'),
         require('../assets/images/nick-de-partee-5DLBoEX99Cs-unsplash.jpg'),
+        require('../assets/images/10_ieguvumi_img_15-unsplash.jpg'),
       ],
+      links: ['About Us', 'Services', 'Blog', 'Contact Us'], // TODO: Add footer links
     }
   },
   methods: {
