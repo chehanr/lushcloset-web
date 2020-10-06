@@ -20,6 +20,7 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -27,12 +28,14 @@
 import ListingCard from '~/components/ListingCard'
 import SearchCard from '~/components/SearchCard'
 import NavCard from '~/components/NavCard'
+import Footer from '~/components/Footer'
 
 export default {
   components: {
     ListingCard,
     SearchCard,
     NavCard,
+    Footer,
   },
   async fetch() {
     const queries = this.$route.query
