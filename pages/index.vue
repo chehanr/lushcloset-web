@@ -130,5 +130,10 @@ export default {
       showNav: false,
     }
   },
+  head() {
+    return {
+      title: 'LushCloset | Discover, Buy, Sell & Rent',
+    }
+  },
 }
 </script>
