@@ -27,32 +27,37 @@ export default {
     '@nuxtjs/date-fns',
     '@nuxtjs/google-fonts',
   ],
-  modules: ['@nuxtjs/bulma', '@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth'],
+  modules: [
+    '@nuxtjs/bulma',
+    // '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    // '@nuxtjs/auth'
+  ],
   axios: {
-    baseURL: 'https://lushcloset.herokuapp.com/',
+    // baseURL: 'https://lushcloset.herokuapp.com/',
   },
   router: {
-    middleware: ['auth'],
+    // middleware: ['auth'],
   },
-  auth: {
-    strategies: {
-      local: {
-        endpoints: {
-          login: {
-            url: '/api/v1_0/auth/local/login',
-            method: 'post',
-            propertyName: 'data.accessToken',
-          },
-          logout: false,
-          user: {
-            url: '/api/v1_0/me',
-            method: 'get',
-            propertyName: 'data',
-          },
-        },
-      },
-    },
-  },
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           url: '/api/v1_0/auth/local/login',
+  //           method: 'post',
+  //           propertyName: 'data.accessToken',
+  //         },
+  //         logout: false,
+  //         user: {
+  //           url: '/api/v1_0/me',
+  //           method: 'get',
+  //           propertyName: 'data',
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
   'google-fonts': {
     families: {
       Roboto: true,
