@@ -14,7 +14,10 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  css: [],
+  css: [
+    { src: '~/assets/css/main.scss', lang: 'scss' },
+    { src: '~/assets/css/fonts.css', lang: 'css' },
+  ],
   plugins: [],
   components: true,
   buildModules: [
@@ -22,6 +25,7 @@ export default {
     '@nuxtjs/stylelint-module',
     '@nuxtjs/svg',
     '@nuxtjs/date-fns',
+    '@nuxtjs/google-fonts',
   ],
   modules: ['@nuxtjs/bulma', '@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth'],
   axios: {
@@ -48,6 +52,13 @@ export default {
         },
       },
     },
+  },
+  'google-fonts': {
+    families: {
+      Roboto: true,
+      Nunito: [300],
+    },
+    download: true,
   },
   build: {
     postcss: {
