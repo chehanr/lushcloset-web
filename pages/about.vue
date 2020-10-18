@@ -1,24 +1,17 @@
 <template>
   <div class="body">
     <Header />
-    <div class="splash-background">
-      <div class="about-info">
-        <h1>About LushCloset</h1>
-        LushCloset is a peer-to-peer application which allows you to rent, buy
-        and sell pieces of clothing quickly and easily.
-      </div>
+    <GradientBackground />
+    <div class="about-info">
+      <h1>About LushCloset</h1>
+      LushCloset is a peer-to-peer application which allows you to rent, buy
+      sell pieces of clothing quickly and easily.
     </div>
     <Footer />
   </div>
 </template>
 
 <style lang="sass" scoped>
-.splash-background
-  background: linear-gradient(280deg, #f8ff00 0%, #3ad59f 100%)
-  height: 94vh
-  top: 0
-  left: 0
-
 .about-info
   margin: 0 auto
   position: absolute
@@ -30,12 +23,15 @@
 
 <script>
 import Header from '~/components/Header'
+import GradientBackground from '~/components/GradientBackground'
 import Footer from '~/components/Footer'
 
 export default {
   components: {
     Header,
+    GradientBackground,
     Footer,
   },
+  auth: 'guest',
 }
 </script>

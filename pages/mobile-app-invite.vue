@@ -1,36 +1,38 @@
 <template>
   <div class="body">
-    <LoginHeader />
-    <div class="splash-background">
-      <MobileAppInvite />
-    </div>
+    <Header />
+    <GradientBackground />
+    <MobileAppInvite />
     <Footer />
   </div>
 </template>
 
 <style lang="sass" scoped>
+.wrapper
+  min-height: 100%
+
 .invite-container
   margin: auto
-  position: relative
+  position: absolute
   top: 15%
-
-.splash-background
-  background: linear-gradient(280deg, #f8ff00 0%, #3ad59f 100%)
-  height: 94vh
-  top: 0
-  left: 0
+  left: 30%
+  max-width: 100%
+  height: auto
 </style>
 
 <script>
-import LoginHeader from '~/components/Header'
+import Header from '~/components/Header'
+import GradientBackground from '~/components/GradientBackground'
 import Footer from '~/components/Footer'
 import MobileAppInvite from '~/components/MobileAppInvite'
 
 export default {
   components: {
-    LoginHeader,
+    Header,
+    GradientBackground,
     Footer,
     MobileAppInvite,
   },
+  auth: 'guest',
 }
 </script>
