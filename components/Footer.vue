@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="row has-text-centered">
       <a href="about" class="footer-links">About</a>
-      <a href="/mobile-app-invite" class="footer-links">Mobile App</a>
+      <a href="mobile-app-invite" class="footer-links">Mobile App</a>
       <a href="contact-us" class="footer-links">Contact Us</a>
       <div class="company has-text-centered">
         {{ new Date().getFullYear() }} — <strong>LushCloset</strong>
@@ -28,4 +28,5 @@
 
 .company
   text-align: right
+  padding-top: 10px
 </style>
