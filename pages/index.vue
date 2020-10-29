@@ -71,11 +71,7 @@
           </div>
           <div class="column is-half">
             <div class="hero-app">
-              <img
-                class="app"
-                src="~/assets/images/hero_app.png"
-                alt="App screenshot"
-              />
+              <img class="app" :src="heroAppImgSrc" alt="App screenshot" />
             </div>
           </div>
         </div>
@@ -128,7 +124,22 @@ export default {
   data() {
     return {
       showNav: false,
+      heroAppImgs: [
+        require('~/assets/images/hero_app_1.png'),
+        require('~/assets/images/hero_app_2.png'),
+        require('~/assets/images/hero_app_3.png'),
+      ],
+      heroAppImgSrc: null,
     }
+  },
+  created() {
+    this.heroAppImgSrc = this.heroAppImgs[0]
+
+    setInterval(() => {
+      this.heroAppImgSrc = this.heroAppImgs[
+        Math.floor(Math.random() * this.heroAppImgs.length)
+      ]
+    }, 5000)
   },
   head() {
     return {
