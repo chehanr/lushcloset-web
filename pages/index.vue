@@ -1,57 +1,5 @@
 <template>
   <section class="hero is-fullheight">
-    <div class="hero-head">
-      <nav class="navbar">
-        <div class="container">
-          <div class="navbar-brand">
-            <span
-              class="navbar-burger burger"
-              data-target="navbar-menu"
-              :class="{ 'is-active': showNav }"
-              @click="showNav = !showNav"
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </div>
-          <div
-            id="navbar-menu"
-            class="navbar-menu"
-            :class="{ 'is-active': showNav }"
-          >
-            <div class="navbar-end">
-              <span class="navbar-item">
-                <a
-                  href="https://chehanr.com/lushcloset-backend/"
-                  target="_blank"
-                  class="button is-info is-inverted"
-                >
-                  <!-- <span class="icon">
-                    <img src="~assets/icons/book-open.svg" alt="Docs" />
-                  </span> -->
-                  <span>API Docs</span>
-                </a>
-              </span>
-              <span class="navbar-item">
-                <a
-                  href="https://github.com/chehanr/lushcloset-backend/"
-                  target="_blank"
-                  class="button is-white"
-                >
-                  <span class="icon">
-                    <img src="~assets/icons/github.svg" alt="GitHub" />
-                  </span>
-
-                  <span>GitHub</span>
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-
     <div class="hero-body">
       <div class="container">
         <div class="columns is-vcentered">
@@ -71,11 +19,7 @@
           </div>
           <div class="column is-half">
             <div class="hero-app">
-              <img
-                class="app"
-                src="~/assets/images/hero_app.png"
-                alt="App screenshot"
-              />
+              <img class="app" :src="heroAppImgSrc" alt="App screenshot" />
             </div>
           </div>
         </div>
@@ -128,7 +72,22 @@ export default {
   data() {
     return {
       showNav: false,
+      heroAppImgs: [
+        require('~/assets/images/hero_app_1.png'),
+        require('~/assets/images/hero_app_2.png'),
+        require('~/assets/images/hero_app_3.png'),
+      ],
+      heroAppImgSrc: null,
     }
+  },
+  created() {
+    this.heroAppImgSrc = this.heroAppImgs[0]
+
+    setInterval(() => {
+      this.heroAppImgSrc = this.heroAppImgs[
+        Math.floor(Math.random() * this.heroAppImgs.length)
+      ]
+    }, 5000)
   },
   head() {
     return {
